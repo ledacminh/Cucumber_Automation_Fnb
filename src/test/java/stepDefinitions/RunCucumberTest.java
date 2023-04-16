@@ -8,10 +8,10 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         snippets = CucumberOptions.SnippetType.CAMELCASE,
         features = {"classpath:features"},
-        monochrome = true,
+        monochrome = false,
         glue = {"helpers", "stepDefinitions"},
         plugin = {"pretty", "html:target/cucumber-html-report.html", "json:target/report.json"},
-        tags = "@tag"
+        tags = "@login01 or @login02"
 )
 public class RunCucumberTest {
 }
