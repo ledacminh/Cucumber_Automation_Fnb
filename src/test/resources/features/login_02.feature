@@ -31,7 +31,7 @@ Feature: Login to FnB
       | username   | password   |
       | 0966152432 | HaNoi@2023 |
 
-  @tag1
+  @tag
   Scenario Outline:  Login Successfully using Datatable
     Given Open Fnb system
     When Input to name store with "autotest1111"

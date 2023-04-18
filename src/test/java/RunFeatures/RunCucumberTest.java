@@ -1,4 +1,4 @@
-package stepDefinitions;
+package RunFeatures;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
@@ -9,9 +9,9 @@ import org.junit.runner.RunWith;
         snippets = CucumberOptions.SnippetType.CAMELCASE,
         features = {"classpath:features"},
         monochrome = false,
-        glue = {"helpers", "stepDefinitions"},
+        glue = {"helpers", "actions"},
         plugin = {"pretty", "html:target/cucumber-html-report.html", "json:target/report.json"},
-        tags = "@login01 or @login02"
+        tags = "@login01"
 )
 public class RunCucumberTest {
 }
