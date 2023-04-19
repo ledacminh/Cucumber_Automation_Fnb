@@ -25,7 +25,7 @@ public class LoginStepDefinitions extends BasePage {
 
     @When("Input to name store" )
     public void inputToNameStore() {
-        enterTextToElement(driver, "a", "autotest1111" );
+        enterTextToElement(driver, LoginUI.TEN_GIAN_HANG, "autotest1111" );
     }
 
     @When("Input to user name" )

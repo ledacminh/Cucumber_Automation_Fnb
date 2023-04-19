@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
         monochrome = false,
         glue = {"helpers", "actions"},
         plugin = {"pretty", "html:target/cucumber-html-report.html", "json:target/cucumber.json"},
-        tags = "@tag1"
+        tags = "@tag01"
 )
 public class RunCucumberTest {
 }
