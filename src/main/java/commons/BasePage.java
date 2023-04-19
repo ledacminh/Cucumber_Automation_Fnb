@@ -398,6 +398,6 @@ public class BasePage {
     public void getBrowser(WebDriver driver) {
         driver.get(GlobalConstants.PROJECT_URL);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 }

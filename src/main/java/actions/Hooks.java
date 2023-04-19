@@ -63,7 +63,7 @@ public class Hooks {
                 Runtime.getRuntime().addShutdownHook(new Thread(new BrowserCleanup()));
             }
             driver.get(GlobalConstants.PROJECT_URL);
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.SHORT_TIMEOUT));
             driver.manage().window().maximize();
             Log.info("------------- Started the browser -------------" );
         }

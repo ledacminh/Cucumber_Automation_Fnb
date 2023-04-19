@@ -6,7 +6,7 @@ import java.util.Calendar;
 
 public class GlobalConstants {
     public static final String PROJECT_PATH = System.getProperty("user.dir");
-    public static final long SHORT_TIMEOUT = 15;
+    public static final long SHORT_TIMEOUT = 10;
     public static final long LONG_TIMEOUT = 20;
     public static final long RETRY_COUNT = 2;
 
