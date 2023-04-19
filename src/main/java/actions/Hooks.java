@@ -9,63 +9,100 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 
 public class Hooks {
-    // Run for many thread
     private static WebDriver driver;
+    private static final Map<String, String> mapDataProperties = new HashMap<String, String>();
+
+    static {
+        try {
+            String env = System.getProperty("env") + "";
+            String pathFileEnvConfig = "";
+            switch (env) {
+                case "testing":
+                    pathFileEnvConfig = GlobalConstants.TESTING_PROPERTY_PATH;
+                    break;
+                case "production":
+                    pathFileEnvConfig = GlobalConstants.PRODUCTION_PROPERTY_PATH;
+                    break;
+                case "staging":
+                    pathFileEnvConfig = GlobalConstants.STAGING_PROPERTY_PATH;
+                    break;
+                default:
+                    pathFileEnvConfig = GlobalConstants.DEV_PROPERTY_PATH;
+                    break;
+            }
+            Properties properties = new Properties();
+            properties.load(new FileInputStream(pathFileEnvConfig));
+            Enumeration<?> enumeration = properties.propertyNames();
+            while (enumeration.hasMoreElements()) {
+                String key = (String) enumeration.nextElement();
+                String value = properties.getProperty(key);
+                mapDataProperties.put(key, value);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("[Hooks] " + e.getMessage());
+        }
+    }
+
+    public static String getString(String key) {
+        String value = "";
+        try {
+            value = mapDataProperties.get(key);
+        } catch (Exception e) {
+            throw new RuntimeException("[Hooks].[getString]" + e.getMessage());
+        }
+        return value;
+    }
 
     public static void openAndQuitBrowser() {
         // Run by Maven command line
-        String browser = System.getProperty("BROWSER" );
-        System.out.println("Browser name run by command line = " + browser);
+        String browser = System.getProperty("BROWSER") + "";
+        String env = System.getProperty("env");
 
         // Check driver đã được khởi tạo hay chưa?
         if (driver == null) {
             // Happy path case
             try {
-                // Kiem tra BROWSER = null -> gan = chrome/ firefox (browser default for project)
-                if (browser == null) {
-                    // Get browser name from Environment Variable in OS
-                    browser = System.getenv("BROWSER" );
-                    if (browser == null) {
-                        // Set default browser
-                        browser = "firefox";
-                    }
-                }
-
-                if (browser.equals("hchrome" )) {
+                if (browser.equals("hchrome")) {
                     WebDriverManager.chromedriver().setup();
                     ChromeOptions chromeOptions = new ChromeOptions();
-                    chromeOptions.addArguments("headless" );
-                    chromeOptions.addArguments("window-size=1920x1080" );
+                    chromeOptions.addArguments("headless");
+                    chromeOptions.addArguments("window-size=1920x1080");
                     driver = new ChromeDriver(chromeOptions);
                 } else {
                     WebDriverManager.chromedriver().setup();
                     ChromeOptions chromeOptions = new ChromeOptions();
-                    chromeOptions.addArguments("--remote-allow-origins=*" );
+                    chromeOptions.addArguments("--remote-allow-origins=*");
                     driver = new ChromeDriver(chromeOptions);
                 }
                 // Browser crash/ stop
             } catch (UnreachableBrowserException e) {
                 driver = new ChromeDriver();
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--remote-allow-origins=*" );
+                chromeOptions.addArguments("--remote-allow-origins=*");
                 driver = new ChromeDriver(chromeOptions);
                 // Driver crash
             } catch (WebDriverException e) {
                 driver = new ChromeDriver();
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--remote-allow-origins=*" );
+                chromeOptions.addArguments("--remote-allow-origins=*");
                 driver = new ChromeDriver(chromeOptions);
             } finally {
                 Runtime.getRuntime().addShutdownHook(new Thread(new BrowserCleanup()));
             }
-            driver.get(GlobalConstants.PROJECT_URL);
+            driver.get(getString("url"));
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.SHORT_TIMEOUT));
             driver.manage().window().maximize();
-            Log.info("------------- Started the browser -------------" );
+            Log.info("------------- Started the browser -------------");
         }
     }
 
@@ -78,10 +115,10 @@ public class Hooks {
         try {
             if (driver != null) {
                 getDriver().quit();
-                Log.info("------------- Closed the browser -------------" );
+                Log.info("------------- Closed the browser -------------");
             }
         } catch (UnreachableBrowserException e) {
-            System.out.println("Can not close the browser" );
+            System.out.println("Can not close the browser");
         }
     }
 

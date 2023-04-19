@@ -14,5 +14,4 @@ import org.junit.runner.RunWith;
         tags = "@tag1"
 )
 public class RunCucumberTest {
-
 }
