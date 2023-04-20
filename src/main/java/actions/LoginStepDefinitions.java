@@ -14,6 +14,10 @@ import java.util.Map;
 public class LoginStepDefinitions extends BasePage {
     private final WebDriver driver;
 
+    public enum TestData {
+        USERID, PASSWORD
+    }
+
     public LoginStepDefinitions() {
         driver = Hooks.getDriver();
     }
@@ -23,56 +27,57 @@ public class LoginStepDefinitions extends BasePage {
         getBrowser(driver);
     }
 
-    @When("Input to name store" )
+    @When("Input to name store")
     public void inputToNameStore() {
-        enterTextToElement(driver, LoginUI.TEN_GIAN_HANG, "autotest1111" );
+        enterTextToElement(driver, LoginUI.TEN_GIAN_HANG, "autotest1111");
+        ListGlobalScenarioVariable.setValue(TestData.USERID.toString(), "autotest1111");
     }
 
-    @When("Input to user name" )
-    public void inputToUserName() {
-        enterTextToElement(driver, LoginUI.TEN_DANG_NHAP, "0966152432" );
-    }
+//    @When("Input to user name" )
+//    public void inputToUserName() {
+//        enterTextToElement(driver, LoginUI.TEN_DANG_NHAP, "0966152432" );
+//    }
 
-    @When("Input to password" )
+    @When("Input to password")
     public void inputToPassword() {
-        enterTextToElement(driver, LoginUI.MAT_KHAU, "HaNoi@2023" );
+        enterTextToElement(driver, LoginUI.MAT_KHAU, "HaNoi@2023");
     }
 
-    @When("Click to button manage" )
+    @When("Click to button manage")
     public void clickToButtonManage() {
         clickToElement(driver, LoginUI.BUTTON_QUAN_LY);
     }
 
-    @When("Close application" )
+    @When("Close application")
     public void closeApplication() {
-        driver.quit();
+        System.out.println("Qqqqqqqqqqqqqqqqqqq" + ListGlobalScenarioVariable.getValue(TestData.USERID.toString()));
     }
 
-    @When("Input to name store with {string}" )
+    @When("Input to name store with {string}")
     public void inputToNameStoreWith(String nameStore) {
         enterTextToElement(driver, LoginUI.TEN_GIAN_HANG, nameStore);
     }
 
-    @When("Input to user name with {string}" )
+    @When("Input to user name with {string}")
     public void inputToUserNameWith(String userName) {
         enterTextToElement(driver, LoginUI.TEN_GIAN_HANG, userName);
     }
 
-    @When("Input to password with {string}" )
+    @When("Input to password with {string}")
     public void inputToPasswordWith(String password) {
         enterTextToElement(driver, LoginUI.MAT_KHAU, password);
     }
 
-    @And("Input to user name with {} and password with {}" )
+    @And("Input to user name with {} and password with {}")
     public void inputToUserNameWithAndPasswordWith(String userName, String password) {
         enterTextToElement(driver, LoginUI.TEN_DANG_NHAP, userName);
         enterTextToElement(driver, LoginUI.MAT_KHAU, password);
     }
 
-    @When("Input to user name with user name and password" )
+    @When("Input to user name with user name and password")
     public void inputToUserNameWithUserNameAndPassword(DataTable dataTable) {
         List<Map<String, String>> account = dataTable.asMaps(String.class, String.class);
-        enterTextToElement(driver, LoginUI.TEN_DANG_NHAP, account.get(0).get("Username" ));
-        enterTextToElement(driver, LoginUI.MAT_KHAU, account.get(0).get("Password" ));
+        enterTextToElement(driver, LoginUI.TEN_DANG_NHAP, account.get(0).get("Username"));
+        enterTextToElement(driver, LoginUI.MAT_KHAU, account.get(0).get("Password"));
     }
 }

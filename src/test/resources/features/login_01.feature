@@ -12,14 +12,12 @@ Feature: Login to FnB
     And Click to button manage
    # And Close application
 
-
   @tag01
   Scenario:  Login Successfully no parameter
     When Input to name store
     And Input to user name
     And Input to password
     And Click to button manage
-   # And Close application
-
+    And Close application
   #mvn clean verify -D.filter.tags="@tag01"
 
