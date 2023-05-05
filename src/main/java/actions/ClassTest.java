@@ -12,11 +12,11 @@ public class ClassTest extends BasePage {
         driver = Hooks.getDriver();
     }
 
-    @When("Input to user name")
-    public void inputToUserName() {
-        enterTextToElement(driver, LoginUI.TEN_DANG_NHAP, "0966152432");
-        System.out.println("pppppppppppppppp" + ListGlobalScenarioVariable.getValue(LoginStepDefinitions.TestData.USERID.toString()));
-
-    }
+//    @When("Input to user name")
+//    public void inputToUserName() {
+//        enterTextToElement(driver, LoginUI.TEN_DANG_NHAP, "0966152432");
+//        System.out.println("pppppppppppppppp" + ListGlobalScenarioVariable.getValue(LoginStepDefinitions.TestData.USERID.toString()));
+//
+//    }
 
 }

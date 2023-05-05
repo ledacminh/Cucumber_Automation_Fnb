@@ -386,12 +386,12 @@ public class BasePage {
         actions.sendKeys(getDynamicElement(driver, locator, params), keys).perform();
     }
 
-    public boolean isDiplayElements(WebDriver driver, String locator) {
+    public boolean isDisplayElements(WebDriver driver, String locator) {
         waitForElementIsVisible(driver, locator);
         return getElement(driver, locator).isDisplayed();
     }
 
-    public boolean isDiplayElements(WebDriver driver, String locator, String... params) {
+    public boolean isDisplayElements(WebDriver driver, String locator, String... params) {
         waitForElementIsVisible(driver, locator, params);
         return getDynamicElement(driver, locator, params).isDisplayed();
     }

@@ -33,10 +33,10 @@ public class LoginStepDefinitions extends BasePage {
         ListGlobalScenarioVariable.setValue(TestData.USERID.toString(), "autotest1111");
     }
 
-//    @When("Input to user name" )
-//    public void inputToUserName() {
-//        enterTextToElement(driver, LoginUI.TEN_DANG_NHAP, "0966152432" );
-//    }
+    @When("Input to user name" )
+    public void inputToUserName() {
+        enterTextToElement(driver, LoginUI.TEN_DANG_NHAP, "0966152432" );
+    }
 
     @When("Input to password")
     public void inputToPassword() {
